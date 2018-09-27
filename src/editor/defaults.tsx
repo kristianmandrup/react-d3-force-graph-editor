@@ -4,10 +4,11 @@ export const defaults = {
     height: 500,
     width: 960
   },
-  ticked: (e : any) => {
-    console.log('ticked', e)
+  // e : Simulation < never, undefined >
+  ticked: (): void => {
+    console.log('ticked')
   },
   keydown: (e : any) => {
-    console.log('keydown', e)
+    console.log('keydown')
   }
 }

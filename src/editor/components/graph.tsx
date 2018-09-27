@@ -6,16 +6,20 @@ import {
   ILink,
   ILinks,
   INodes,
-  INode
+  INode,
+  IMouseup,
+  ISimulation
 } from '../interfaces';
 
 interface IForceGraphProps {
-  link : ILink,
-  links : ILinks,
-  mousedow : IMousedown,
+  link : ILink
+  links : ILinks
+  mousedown : IMousedown
+  mouseup : IMouseup
   selected : ISelected
-  nodes : INodes,
+  nodes : INodes
   node : INode
+  simulation : ISimulation
 }
 
 // redraw force layout
@@ -24,7 +28,14 @@ export class ForceGraph extends React.Component < IForceGraphProps > {
   public redraw = () => {
     const {link, links} = this.props
     const dataLink = link.data(links)
-    const {mousedown, mouseup, selected, node, nodes} = this.props
+    const {
+      simulation,
+      mousedown,
+      mouseup,
+      selected,
+      node,
+      nodes
+    } = this.props
     dataLink
       .enter()
       .insert('line', '.node')
@@ -44,10 +55,9 @@ export class ForceGraph extends React.Component < IForceGraphProps > {
       return d === selected.link;
     });
 
-    const data.node = node.data(nodes);
+    const dataNode = node.data(nodes);
 
-    data
-      .node
+    dataNode
       .enter()
       .insert('circle')
       .attr('class', 'node')
@@ -84,8 +94,6 @@ export class ForceGraph extends React.Component < IForceGraphProps > {
         .event
         .preventDefault();
     }
-
-    force.start();
-
+    simulation.start();
   }
 }
