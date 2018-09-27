@@ -11,6 +11,7 @@
     "no-console": false,
     "object-literal-sort-keys": false,
     "one-variable-per-declaration": false,
-    "ordered-imports": false
+    "ordered-imports": false,
+    "no-unused-expression": false,
   }
 }

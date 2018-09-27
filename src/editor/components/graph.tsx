@@ -42,8 +42,10 @@ export class ForceGraph extends React.Component < IForceGraphProps > {
       .attr('class', 'link')
       .on('mousedown', (d : any) => {
         mousedown.link = d
-        selected.link = d
-        selected.node = null
+        if (selected) {
+          selected.link = d
+          selected.node = null
+        }
         this.redraw()
       })
 
@@ -52,7 +54,7 @@ export class ForceGraph extends React.Component < IForceGraphProps > {
       .remove();
 
     link.classed('link_selected', (d : any) => {
-      return d === selected.link;
+      return selected && d === selected.link;
     });
 
     const dataNode = node.data(nodes);

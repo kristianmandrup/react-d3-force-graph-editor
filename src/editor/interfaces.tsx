@@ -1,6 +1,6 @@
 export interface ISelected {
-  link : ILink
-  node : INode
+  link : ILink | null
+  node : INode | null
 }
 
 export interface IMousedown {

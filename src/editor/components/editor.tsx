@@ -9,9 +9,8 @@ interface IEditorProps {
 }
 
 interface IEditorState {
-  // nodes : INodes, links : ILinks,
-  nodes : any[] | null
-  links : any[] | null
+  nodes : INodes,
+  links : ILinks,
   node : INode | null,
   link : ILink | null,
   selected : ISelected | null
@@ -19,13 +18,6 @@ interface IEditorState {
 
 export class GraphEditor extends React.Component < IEditorProps,
 IEditorState > {
-  public state = {
-    nodes: null,
-    links: null,
-    node: null,
-    link: null,
-    selected: null
-  }
 
   constructor(props : any) {
     super(props)
@@ -85,7 +77,7 @@ IEditorState > {
   }
 
   protected spliceLinksForNode = (node : any) => {
-    const {links} = this.state;
+    const {links} = this.state
     const toSplice = links.filter((link : any) => {
       return (link.source === node) || (link.target === node);
     });
@@ -111,19 +103,14 @@ IEditorState > {
   }
 
   protected onDelete = (selected : ISelected) => {
-
-    // delete never: see
-    // https://blog.mariusschulz.com/2016/11/18/typescript-2-0-the-never-type
-    if (selected.node) {} else if (selected.link) {}
-
+    this.onDeleteLink(selected.link) || this.onDeleteNode(selected.node)
     selected.link = null;
     selected.node = null;
     this.redraw();
-    break;
   }
 
-  protected onDeleteLink(link : ILink) {
-    if (!node) {
+  protected onDeleteLink(link : ILink | null) {
+    if (!link) {
       return
     }
     const {links} = this.state
@@ -131,7 +118,7 @@ IEditorState > {
     links.splice(index, 1);
   }
 
-  protected onDeleteNode(node : INode) {
+  protected onDeleteNode(node : INode | null) {
     if (!node) {
       return
     }
