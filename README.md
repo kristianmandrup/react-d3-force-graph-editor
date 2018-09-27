@@ -4,7 +4,9 @@ Ported from [Force Directed Graph Editor](http://bl.ocks.org/benzguo/4362310)
 
 ## Resources
 
-- [Fork of modal logic for D4 v4 and 5](https://gist.github.com/weslord/ed155f0928e40014a69bf8469978b82d)
+- [Force Directed Graph Editor](http://bl.ocks.org/benzguo/4362310)
+- [Directed Graph Editor](http://bl.ocks.org/rkirsling/5001347)
+- [Directed Graph Editor: for D3 v4 and 5](https://gist.github.com/weslord/ed155f0928e40014a69bf8469978b82d)
 - [Codepen playground](https://codepen.io/zarazum/pen/fjoqF)
 - [Interactive & Dynamic Force-Directed Graphs with D3](https://medium.com/ninjaconcept/interactive-dynamic-force-directed-graphs-with-d3-da720c6d7811)
 - [Using D3 with React and TypeScript](https://spin.atomicobject.com/2017/07/20/d3-react-typescript/)
