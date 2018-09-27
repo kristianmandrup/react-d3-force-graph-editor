@@ -46,5 +46,5 @@ export interface ISimulation {
   start : () => void
 }
 
-export type ILinks = ILink[]
+export type ILinks = any[]
 export type INodes = any[]

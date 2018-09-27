@@ -9,8 +9,9 @@ interface IEditorProps {
 }
 
 interface IEditorState {
-  nodes : INodes,
-  links : ILinks,
+  // nodes : INodes, links : ILinks,
+  nodes : any[] | null
+  links : any[] | null
   node : INode | null,
   link : ILink | null,
   selected : ISelected | null
@@ -19,8 +20,8 @@ interface IEditorState {
 export class GraphEditor extends React.Component < IEditorProps,
 IEditorState > {
   public state = {
-    nodes: [],
-    links: [],
+    nodes: null,
+    links: null,
     node: null,
     link: null,
     selected: null
@@ -85,11 +86,11 @@ IEditorState > {
 
   protected spliceLinksForNode = (node : any) => {
     const {links} = this.state;
-    const toSplice = links.filter((l : any) => {
-      return (l.source === node) || (l.target === node);
+    const toSplice = links.filter((link : any) => {
+      return (link.source === node) || (link.target === node);
     });
-    toSplice.map((l) => {
-      links.splice(links.indexOf(l), 1);
+    toSplice.map((link) => {
+      links.splice(links.indexOf(link), 1);
     });
   }
 
@@ -102,28 +103,41 @@ IEditorState > {
     if (!selected.node && !selected.link) {
       return
     }
-    const {nodes, links} = this.state
-    const selNode = selected.node
-    const selLink = selected.link
     switch (d3.event.keyCode) {
       case 8: // backspace
       case 46:
-        {
-          // delete never: see
-          // https://blog.mariusschulz.com/2016/11/18/typescript-2-0-the-never-type
-          if (selected.node) {
-            const index = nodes.indexOf(selNode)
-            nodes.splice(index, 1);
-            this.spliceLinksForNode(selNode);
-          } else if (selected.link) {
-            const index = links.indexOf(selLink)
-            links.splice(index, 1);
-          }
-          selected.link = null;
-          selected.node = null;
-          this.redraw();
-          break;
-        }
+        this.onDelete(selected)
     }
+  }
+
+  protected onDelete = (selected : ISelected) => {
+
+    // delete never: see
+    // https://blog.mariusschulz.com/2016/11/18/typescript-2-0-the-never-type
+    if (selected.node) {} else if (selected.link) {}
+
+    selected.link = null;
+    selected.node = null;
+    this.redraw();
+    break;
+  }
+
+  protected onDeleteLink(link : ILink) {
+    if (!node) {
+      return
+    }
+    const {links} = this.state
+    const index = links.indexOf(link)
+    links.splice(index, 1);
+  }
+
+  protected onDeleteNode(node : INode) {
+    if (!node) {
+      return
+    }
+    const {nodes} = this.state
+    const index = nodes.indexOf(node)
+    nodes.splice(index, 1);
+    this.spliceLinksForNode(node);
   }
 }
