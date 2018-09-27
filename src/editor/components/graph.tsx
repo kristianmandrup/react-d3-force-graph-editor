@@ -1,61 +1,81 @@
+import * as d3 from 'd3'
 import * as React from 'react';
+import {
+  IMousedown,
+  ISelected,
+  ILink,
+  ILinks,
+  INodes,
+  INode
+} from '../interfaces';
+
+interface IForceGraphProps {
+  link : ILink,
+  links : ILinks,
+  mousedow : IMousedown,
+  selected : ISelected
+  nodes : INodes,
+  node : INode
+}
 
 // redraw force layout
-export class ForceGraph extends React.Component < {} > {
+export class ForceGraph extends React.Component < IForceGraphProps > {
 
-  redraw = () {
-    link = link.data(links);
-
-    link
+  public redraw = () => {
+    const {link, links} = this.props
+    const dataLink = link.data(links)
+    const {mousedown, mouseup, selected, node, nodes} = this.props
+    dataLink
       .enter()
-      .insert("line", ".node")
-      .attr("class", "link")
-      .on("mousedown", function (d) {
-        mousedownLink = d;
-        selectedLink = d;
-        selectedNode = null;
-        redraw();
-      });
+      .insert('line', '.node')
+      .attr('class', 'link')
+      .on('mousedown', (d : any) => {
+        mousedown.link = d
+        selected.link = d
+        selected.node = null
+        this.redraw()
+      })
 
     link
       .exit()
       .remove();
 
-    link.classed("link_selected", function (d) {
-      return d === selectedLink;
+    link.classed('link_selected', (d : any) => {
+      return d === selected.link;
     });
 
-    node = node.data(nodes);
+    const data.node = node.data(nodes);
 
-    node
+    data
+      .node
       .enter()
-      .insert("circle")
-      .attr("class", "node")
-      .attr("r", 5)
-      .on("mousedown", function (d) {
-        mousedownNode = d;
-        selectedNode = d;
-        selectedLink = null;
-        redraw();
+      .insert('circle')
+      .attr('class', 'node')
+      .attr('r', 5)
+      .on('mousedown', (d : any) => {
+        mousedown.node = d;
+        selected.node = d;
+        selected.link = null;
+        // implicit re-render on state change redraw();
       })
-      .on("mouseup", function (d) {
-        selectedNode = d;
-        mouseupNode = d;
-        redraw();
+      .on('mouseup', (d : any) => {
+        selected.node = d;
+        mouseup.node = d;
+        // implicit re-render on state change redraw();
       })
       .transition()
       .duration(750)
-      .ease("elastic")
-      .attr("r", 6.5);
+      .ease('elastic')
+      .attr('r', 6.5);
 
     node
       .exit()
       .transition()
-      .attr("r", 0)
+      .attr('r', 0)
       .remove();
 
-    node.classed("node_selected", function (d) {
-      return d === selectedNode;
+    node.classed('node_selected', (d : any) => {
+      return d === selected.node;
     });
 
     if (d3.event) {

@@ -1,5 +1,5 @@
 import * as d3 from 'd3'
-import {IMousedown, IDrag} from './interfaces'
+import {IMousedown, IDrag} from '../interfaces'
 
 interface IMousemove {
   mousedown : IMousedown

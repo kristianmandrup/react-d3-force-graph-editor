@@ -16,7 +16,7 @@ interface IEditorState {
   selectedLink : any
 }
 
-export class Editor extends React.Component < IEditorProps,
+export class GraphEditor extends React.Component < IEditorProps,
 IEditorState > {
   public state = {
     nodes: [],

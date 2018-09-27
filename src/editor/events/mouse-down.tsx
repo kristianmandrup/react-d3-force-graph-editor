@@ -12,11 +12,11 @@ export const createMouseDown = ({mousedown, selected, drag, redraw} : any = {}) 
       // reposition drag line
       drag
         .line
-        .attr("class", ".link")
-        .attr("x1", mousedown.node.x)
-        .attr("y1", mousedown.node.y)
-        .attr("x2", mousedown.node.x)
-        .attr("y2", mousedown.node.y);
+        .attr('class', '.link')
+        .attr('x1', mousedown.node.x)
+        .attr('y1', mousedown.node.y)
+        .attr('x2', mousedown.node.x)
+        .attr('y2', mousedown.node.y);
     }
 
     redraw();

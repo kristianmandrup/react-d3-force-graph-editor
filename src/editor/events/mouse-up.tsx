@@ -1,5 +1,12 @@
 import * as d3 from 'd3'
-import {IMousedown, IDrag} from './interfaces'
+import {
+  IMousedown,
+  IMouseup,
+  ISelected,
+  IDrag,
+  INodes,
+  ILinks
+} from '../interfaces'
 
 interface IMouseupConfig {
   drag : IDrag
